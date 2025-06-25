@@ -7,7 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    </noscript>
     <style>
         /* Custom Styles */
         body {
@@ -76,9 +79,10 @@
             background-repeat: no-repeat;
             background-size: cover;
             animation: wave-animation 15s linear infinite;
+            opacity: 0.7;
         }
          .wave-2 {
-            opacity: 0.5;
+            opacity: 0.4;
             animation-duration: 20s;
             animation-direction: reverse;
             bottom: 10px;
@@ -114,19 +118,33 @@
     </style>
 </head>
 <body class="antialiased">
+    <!-- Minimal Loader -->
+    <div id="loader" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:#1A2C42;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s;">
+      <img src="LogoTrans.svg" alt="SeaSwap Logo" style="width:80px;height:80px;">
+    </div>
+    <script>
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(() => loader.style.display = 'none', 400);
+        }
+      });
+    </script>
+    <!-- End Loader -->
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
                 <!--SeaSwap Logo -->
                 <img src="LogoTrans.svg" alt="SeaSwap Logo" class="h-10 w-10">
                 <span class="text-2xl font-bold text-white">SeaSwap</span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
-                <a href="#howitworks" class="text-gray-300 hover:text-cyan-400 transition-colors">How It Works</a>
-                <a href="#roadmap" class="text-gray-300 hover:text-cyan-400 transition-colors">Roadmap</a>
+                <a href="#about-anchor" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
+                <a href="#howitworks-anchor" class="text-gray-300 hover:text-cyan-400 transition-colors">How It Works</a>
+                <a href="#roadmap-anchor" class="text-gray-300 hover:text-cyan-400 transition-colors">Roadmap</a>
                 <a href="#api" class="text-gray-300 hover:text-cyan-400 transition-colors">API</a>
                 <a href="mailto:support@seaswap.xyz" class="text-gray-300 hover:text-cyan-400 transition-colors">Contact</a>
                 <a href="https://linktree.seaswap.xyz" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer">Follow Us</a>
@@ -164,7 +182,7 @@
         </section>
 
         <!-- About SeaSwap -->
-        <section id="about" class="py-4 sm:py-8 relative overflow-hidden">
+        <section id="about" class="pt-2 sm:pt-4 pb-4 sm:pb-8 relative overflow-hidden">
             <div class="hero-bg">
                 <div class="wave"></div>
                 <div class="wave wave-2"></div>
@@ -172,6 +190,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
+                    <div id="about-anchor" style="position: relative; top: -80px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">The Smartest Way to Swap Tokens</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">Our mission is to simplify and optimize your trading experience by navigating the complexities of DeFi for you.</p>
                 </div>
@@ -189,14 +208,14 @@
                             <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-white">Kaspa L2 Focused</h3>
-                        <p class="text-gray-400">Built specifically for the burgeoning Kaspa ecosystem, ensuring deep liquidity and fast, low-cost transactions.</p>
+                        <p class="text-gray-400">Built specifically for the growing Kaspa ecosystem, ensuring deep liquidity and fast, low-cost transactions.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- How It Works -->
-        <section id="howitworks" class="py-10 sm:py-16 bg-[#1A2C42] relative overflow-hidden">
+        <section id="howitworks" class="py-10 sm:py-16 bg-[#1A2C42] relative overflow-hidden scroll-mt-24">
             <div class="hero-bg">
                 <div class="wave"></div>
                 <div class="wave wave-2"></div>
@@ -204,6 +223,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
+                    <div id="howitworks-anchor" style="position: relative; top: -80px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Swap Seamlessly in Three Steps</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">A frictionless trading experience from start to finish.</p>
                 </div>
@@ -234,7 +254,7 @@
         </section>
 
         <!-- Public Roadmap -->
-        <section id="roadmap" class="py-10 sm:py-16 relative overflow-hidden">
+        <section id="roadmap" class="py-10 sm:py-16 relative overflow-hidden scroll-mt-24">
             <div class="hero-bg">
                 <div class="wave"></div>
                 <div class="wave wave-2"></div>
@@ -242,6 +262,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
+                    <div id="roadmap-anchor" style="position: relative; top: -80px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Roadmap</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">We believe in transparent development and are excited to share our public roadmap.</p>
                 </div>
@@ -315,10 +336,10 @@
             <div class="container mx-auto px-6 relative z-10">
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
                     <div class="order-2 md:order-1 card p-8">
-                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful API for Developers</h2>
-                        <p class="text-lg text-gray-400 mb-4">Integrate SeaSwap's deep liquidity and optimal routing directly into your dApp, wallet, or service. Our API provides real-time quotes, token lists, and seamless swap execution.</p>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Seaswap API & Developer Docs</h2>
+                        <p class="text-lg text-gray-400 mb-4">Access deep liquidity, optimal routing, and seamless swap execution directly from your dApp, wallet, or service. Our robust API offers real-time quotes, token lists, and easy integration for developers building on Kaspa L2s.</p>
                         <a href="#" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg">
-                            View Swagger Docs
+                            Explore API Reference
                         </a>
                     </div>
                     <div class="order-1 md:order-2">
@@ -383,9 +404,9 @@ getQuote();</code></pre>
                 "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
                 "color": { "value": "#0EA5E9" },
                 "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
-                "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.2, "sync": false } },
                 "size": { "value": 2, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
-                "line_linked": { "enable": true, "distance": 150, "color": "#2D4663", "opacity": 0.3, "width": 1 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#2D4663", "opacity": 0.5, "width": 1 },
                 "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
             },
             "interactivity": {
