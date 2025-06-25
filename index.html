@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaSwap — The DEX Aggregator for Kaspa L2s</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A2C42;
+            color: #F8FAFC; /* Lighter white for better readability */
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #0EA5E9, #3B82F6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #0EA5E9, #3B82F6);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #1E3A5F;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #2D4663;
+            border-color: #0EA5E9;
+        }
+        .card {
+            background-color: #2D4663;
+            border: 1px solid #1E3A5F;
+            border-radius: 1.5rem; /* 24px */
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: #0EA5E9;
+        }
+        .glass-effect {
+             background: rgba(45, 70, 99, 0.5);
+             backdrop-filter: blur(10px);
+             -webkit-backdrop-filter: blur(10px);
+             border: 1px solid #1E3A5F;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100px;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-5.58,90.03 C150.31,188.61 349.20,-49.98 503.66,92.57 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: %231A2C42;"></path></svg>');
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation: wave-animation 15s linear infinite;
+        }
+         .wave-2 {
+            opacity: 0.5;
+            animation-duration: 20s;
+            animation-direction: reverse;
+            bottom: 10px;
+        }
+        @keyframes wave-animation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .roadmap-line {
+            position: absolute;
+            left: 50%;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 4px;
+            background: linear-gradient(to bottom, #2D4663, #0EA5E9, #3B82F6, #2D4663);
+            transform: translateX(-50%);
+        }
+        @media (max-width: 768px) {
+            .roadmap-line {
+                left: 1.5rem;
+                top: 2rem;
+                bottom: 2rem;
+            }
+        }
+        .code-block {
+            background-color: #1E293B; /* slate-800 */
+        }
+        .token-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!--SeaSwap Logo -->
+                <img src="LogoTrans.svg" alt="SeaSwap Logo" class="h-10 w-10">
+                <span class="text-2xl font-bold text-white">SeaSwap</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
+                <a href="#howitworks" class="text-gray-300 hover:text-cyan-400 transition-colors">How It Works</a>
+                <a href="#roadmap" class="text-gray-300 hover:text-cyan-400 transition-colors">Roadmap</a>
+                <a href="#api" class="text-gray-300 hover:text-cyan-400 transition-colors">API</a>
+                <a href="mailto:support@seaswap.xyz" class="text-gray-300 hover:text-cyan-400 transition-colors">Contact</a>
+                <a href="https://linktree.seaswap.xyz" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer">Follow Us</a>
+            </div>
+            <button class="btn-primary px-5 py-2.5 rounded-full font-semibold opacity-50 cursor-not-allowed" disabled>Coming Soon</button>
+        </nav>
+    </header>
+
+    <main class="overflow-x-hidden">
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center text-center pt-20 overflow-hidden">
+             <div class="hero-bg">
+                <div class="wave"></div>
+                <div class="wave wave-2"></div>
+                <!-- Optional Animated Particles -->
+                <div id="particles-js" class="absolute inset-0"></div>
+            </div>
+            <div class="container mx-auto px-6 z-10">
+                <!-- Updated Tagline -->
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4">
+                    Smarter Swaps on Kaspa Layer 2s
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    SeaSwap is the first aggregator built for Kaspa L2s, optimizing your trades across all DEXs for better execution and lower costs.
+                </p>
+                <div class="flex justify-center items-center space-x-4">
+                    <button class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg opacity-50 cursor-not-allowed" disabled>
+                        Coming Soon
+                    </button>
+                    <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-secondary text-white font-bold py-3 px-8 rounded-full text-lg" target="_blank" rel="noopener noreferrer">
+                        Read the Docs
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About SeaSwap -->
+        <section id="about" class="py-4 sm:py-8 relative overflow-hidden">
+            <div class="hero-bg">
+                <div class="wave"></div>
+                <div class="wave wave-2"></div>
+                <div id="particles-about" class="absolute inset-0"></div>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">The Smartest Way to Swap Tokens</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">Our mission is to simplify and optimize your trading experience by navigating the complexities of DeFi for you.</p>
+                </div>
+                <!-- Updated Grid Layout -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="card p-8 text-center">
+                        <div class="flex justify-center mb-4">
+                            <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Optimal Pricing</h3>
+                        <p class="text-gray-400">Our pathfinding algorithm scans multiple liquidity sources to find you the lowest slippage and best possible rates.</p>
+                    </div>
+                    <div class="card p-8 text-center">
+                        <div class="flex justify-center mb-4">
+                            <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Kaspa L2 Focused</h3>
+                        <p class="text-gray-400">Built specifically for the burgeoning Kaspa ecosystem, ensuring deep liquidity and fast, low-cost transactions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="howitworks" class="py-10 sm:py-16 bg-[#1A2C42] relative overflow-hidden">
+            <div class="hero-bg">
+                <div class="wave"></div>
+                <div class="wave wave-2"></div>
+                <div id="particles-howitworks" class="absolute inset-0"></div>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Swap Seamlessly in Three Steps</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">A frictionless trading experience from start to finish.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="card p-8 border-t-4 border-transparent hover:border-cyan-400">
+                        <div class="mb-4 inline-block p-4 bg-[#1E3A5F] rounded-full">
+                           <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">1. Connect Wallet</h3>
+                        <p class="text-gray-400">Securely connect your favorite Kaspa-compatible wallet in just a few clicks.</p>
+                    </div>
+                    <div class="card p-8 border-t-4 border-transparent hover:border-cyan-400">
+                         <div class="mb-4 inline-block p-4 bg-[#1E3A5F] rounded-full">
+                            <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">2. Get the Best Quote</h3>
+                        <p class="text-gray-400">Enter your desired trade, and SeaSwap instantly finds the most efficient route for you.</p>
+                    </div>
+                    <div class="card p-8 border-t-4 border-transparent hover:border-cyan-400">
+                         <div class="mb-4 inline-block p-4 bg-[#1E3A5F] rounded-full">
+                            <svg class="w-10 h-10 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">3. Swap Seamlessly</h3>
+                        <p class="text-gray-400">Confirm the transaction and receive your tokens directly in your wallet. It's that simple.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Public Roadmap -->
+        <section id="roadmap" class="py-10 sm:py-16 relative overflow-hidden">
+            <div class="hero-bg">
+                <div class="wave"></div>
+                <div class="wave wave-2"></div>
+                <div id="particles-roadmap" class="absolute inset-0"></div>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Roadmap</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">We believe in transparent development and are excited to share our public roadmap.</p>
+                </div>
+                <div class="relative">
+                    <div class="roadmap-line hidden md:block"></div>
+                    <div class="space-y-12 md:space-y-0">
+                        <!-- Q3 2025 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:text-right md:pr-16">
+                                <p class="text-lg font-semibold text-cyan-400">Q3 2025</p>
+                            </div>
+                            <div class="relative">
+                                <div class="hidden md:block absolute w-4 h-4 bg-cyan-400 rounded-full top-1/2 -translate-y-1/2 -left-16 transform -translate-x-1/2"></div>
+                                <div class="card p-6 mt-4 md:mt-0">
+                                    <h3 class="text-xl font-bold text-white">Testnet Launch</h3>
+                                    <p class="text-gray-400 mt-2">Integrate top DEXs on Kaspa Layer 2s, deploy on Igra and Kasplex testnets, and begin closed testing with early users.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Q4 2025 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:col-start-2">
+                                <p class="text-lg font-semibold text-cyan-400 md:pl-16">Q4 2025</p>
+                            </div>
+                            <div class="relative md:col-start-1 md:row-start-1">
+                                 <div class="hidden md:block absolute w-4 h-4 bg-gray-600 rounded-full top-1/2 -translate-y-1/2 -right-16 transform translate-x-1/2"></div>
+                                <div class="card p-6 mt-4 md:mt-0 md:text-right">
+                                    <h3 class="text-xl font-bold text-white">Mainnet Launch</h3>
+                                    <p class="text-gray-400 mt-2">Launch SeaSwap v1 on mainnet, enable public access and live trading, and start onboarding wallets and partners.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Q1 2026 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:text-right md:pr-16">
+                                <p class="text-lg font-semibold text-cyan-400">Q1 2026</p>
+                            </div>
+                            <div class="relative">
+                                <div class="hidden md:block absolute w-4 h-4 bg-gray-600 rounded-full top-1/2 -translate-y-1/2 -left-16 transform -translate-x-1/2"></div>
+                                <div class="card p-6 mt-4 md:mt-0">
+                                    <h3 class="text-xl font-bold text-white">Advanced Features</h3>
+                                    <p class="text-gray-400 mt-2">Roll out advanced features & analytics, add performance metrics and swap insights, and expand ecosystem integrations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Q2 2026 -->
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center">
+                            <div class="md:col-start-2">
+                                <p class="text-lg font-semibold text-cyan-400 md:pl-16">Q2 2026</p>
+                            </div>
+                            <div class="relative md:col-start-1 md:row-start-1">
+                                 <div class="hidden md:block absolute w-4 h-4 bg-gray-600 rounded-full top-1/2 -translate-y-1/2 -right-16 transform translate-x-1/2"></div>
+                                <div class="card p-6 mt-4 md:mt-0 md:text-right">
+                                    <h3 class="text-xl font-bold text-white">Coming Soon</h3>
+                                    <p class="text-gray-400 mt-2">More exciting features and integrations are in development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API for Developers -->
+        <section id="api" class="py-10 sm:py-16 relative overflow-hidden">
+            <div class="hero-bg">
+                <div class="wave"></div>
+                <div class="wave wave-2"></div>
+                <div id="particles-api" class="absolute inset-0"></div>
+            </div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
+                    <div class="order-2 md:order-1 card p-8">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Powerful API for Developers</h2>
+                        <p class="text-lg text-gray-400 mb-4">Integrate SeaSwap's deep liquidity and optimal routing directly into your dApp, wallet, or service. Our API provides real-time quotes, token lists, and seamless swap execution.</p>
+                        <a href="#" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg">
+                            View Swagger Docs
+                        </a>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <div class="code-block rounded-xl p-4 font-mono text-xs sm:text-sm text-gray-300 shadow-2xl overflow-x-auto">
+                            <pre><code class="language-js"><span class="text-purple-400">import</span> { SeaSwapSDK } <span class="text-purple-400">from</span> <span class="text-green-400">'@seaswap/sdk'</span>;
+
+<span class="text-purple-400">const</span> sdk = <span class="text-blue-400">new</span> SeaSwapSDK({ network: <span class="text-green-400">'kaspa-mainnet'</span> });
+
+<span class="text-purple-400">async function</span> <span class="text-yellow-300">getQuote</span>() {
+  <span class="text-purple-400">const</span> quote = <span class="text-purple-400">await</span> sdk.getQuote({
+    fromToken: <span class="text-green-400">'KAS'</span>,
+    toToken: <span class="text-green-400">'USDC'</span>,
+    amount: <span class="text-green-400">'100000000'</span>, <span class="text-gray-500">// in smallest units</span>
+  });
+  console.log(quote.toTokenAmount);
+}
+
+getQuote();</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-[#101E2F] py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <!-- Updated Social Icons -->
+            <div class="flex justify-center space-x-6 mb-8 items-center">
+                <a href="https://discord.gg/qsM9tKRyfB" class="hover:text-cyan-400 transition-colors" aria-label="Join our Discord community" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="28" height="28" fill="currentColor">
+                      <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+                    </svg>
+                  </a>
+                 <a href="https://x.com/SeaSwapXYZ" class="hover:text-cyan-400 transition-colors" aria-label="X" target="_blank" rel="noopener noreferrer">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                </a>
+                <a href="https://t.me/SeaSwapAgg" class="hover:text-cyan-400 transition-colors" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0011.944 0zm5.641 8.243l-1.432 6.677a.64.64 0 01-1.22.186l-2.45-1.92-1.215 1.171a.4.4 0 01-.522.049l.173-.553-3.66-2.254a.64.64 0 01.077-1.19l9.356-3.53a.64.64 0 01.815.774z"></path></svg>
+                </a>
+                <a href="https://dors-organization-1.gitbook.io/public-docs" class="hover:text-cyan-400 transition-colors" aria-label="Read our documentation" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                      <path d="M10.802 17.77a.703.703 0 1 1-.002 1.406.703.703 0 0 1 .002-1.406m11.024-4.347a.703.703 0 1 1 .001-1.406.703.703 0 0 1-.001 1.406m0-2.876a2.176 2.176 0 0 0-2.174 2.174c0 .233.039.465.115.691l-7.181 3.823a2.165 2.165 0 0 0-1.784-.937c-.829 0-1.584.475-1.95 1.216l-6.451-3.402c-.682-.358-1.192-1.48-1.138-2.502.028-.533.212-.947.493-1.107.178-.1.392-.092.62.027l.042.023c1.71.9 7.304 3.847 7.54 3.956.363.169.565.237 1.185-.057l11.564-6.014c.17-.064.368-.227.368-.474 0-.342-.354-.477-.355-.477-.658-.315-1.669-.788-2.655-1.25-2.108-.987-4.497-2.105-5.546-2.655-.906-.474-1.635-.074-1.765.006l-.252.125C7.78 6.048 1.46 9.178 1.1 9.397.457 9.789.058 10.57.006 11.539c-.08 1.537.703 3.14 1.824 3.727l6.822 3.518a2.175 2.175 0 0 0 2.15 1.862 2.177 2.177 0 0 0 2.173-2.14l7.514-4.073c.38.298.853.461 1.337.461A2.176 2.176 0 0 0 24 12.72a2.176 2.176 0 0 0-2.174-2.174"/>
+                    </svg>
+                  </a>
+            </div>
+            <div class="mb-4">
+                Contact us: <a href="mailto:support@seaswap.xyz" class="text-cyan-400 hover:underline">support@seaswap.xyz</a>
+            </div>
+            <p>&copy; 2025 SeaSwap. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Script for optional particle animation background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particle configuration
+        const particleConfig = {
+            "particles": {
+                "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#0EA5E9" },
+                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+                "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                "size": { "value": 2, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+                "line_linked": { "enable": true, "distance": 150, "color": "#2D4663", "opacity": 0.3, "width": 1 },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+            },
+            "retina_detect": true
+        };
+
+        // Initialize particles for all sections
+        const particleSections = ['particles-js', 'particles-about', 'particles-howitworks', 'particles-roadmap', 'particles-api'];
+        
+        particleSections.forEach(sectionId => {
+            if (document.getElementById(sectionId)) {
+                particlesJS(sectionId, particleConfig);
+            }
+        });
+    </script>
+</body>
+</html>
