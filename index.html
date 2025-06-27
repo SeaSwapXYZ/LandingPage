@@ -335,16 +335,16 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
-                    <div class="order-2 md:order-1 card p-8">
+                    <div class="order-2 md:order-1 card w-full max-w-full p-4 sm:p-8 break-words">
                         <h2 class="text-3xl md:text-4xl font-bold mb-4">Seaswap API & Developer Docs</h2>
                         <p class="text-lg text-gray-400 mb-4">Access deep liquidity, optimal routing, and seamless swap execution directly from your dApp, wallet, or service. Our robust API offers real-time quotes, token lists, and easy integration for developers building on Kaspa L2s.</p>
-                        <a href="#" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg">
-                            Explore API Reference
+                        <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg" target="_blank" rel="noopener noreferrer">
+                            View docs
                         </a>
                     </div>
-                    <div class="order-1 md:order-2">
-                        <div class="code-block rounded-xl p-4 font-mono text-xs sm:text-sm text-gray-300 shadow-2xl overflow-x-auto">
-                            <pre><code class="language-js"><span class="text-purple-400">import</span> { SeaSwapSDK } <span class="text-purple-400">from</span> <span class="text-green-400">'@seaswap/sdk'</span>;
+                    <div class="order-1 md:order-2 w-full max-w-full">
+                        <div class="code-block rounded-xl p-4 font-mono text-xs sm:text-sm text-gray-300 shadow-2xl overflow-x-auto max-w-full break-words">
+                            <pre class="whitespace-pre-wrap break-words max-w-full overflow-x-auto"><code class="language-js"><span class="text-purple-400">import</span> { SeaSwapSDK } <span class="text-purple-400">from</span> <span class="text-green-400">'@seaswap/sdk'</span>;
 
 <span class="text-purple-400">const</span> sdk = <span class="text-blue-400">new</span> SeaSwapSDK({ network: <span class="text-green-400">'kaspa-mainnet'</span> });
 
