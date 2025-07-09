@@ -26,20 +26,24 @@
         .btn-primary {
             background-image: linear-gradient(to right, #0EA5E9, #3B82F6);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
         }
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
         }
-        .btn-secondary {
-            background-color: transparent;
+        .btn-link {
+            background: none;
             border: 1px solid #1E3A5F;
+            color: #0EA5E9;
+            text-decoration: none;
             transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
         }
-        .btn-secondary:hover {
-            background-color: #2D4663;
+        .btn-link:hover {
             border-color: #0EA5E9;
+            background-color: rgba(14, 165, 233, 0.05);
+            color: #3B82F6;
         }
         .card {
             background-color: #2D4663;
@@ -48,9 +52,9 @@
             transition: all 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-color: #0EA5E9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background-color: #364B6B;
         }
         .glass-effect {
              background: rgba(45, 70, 99, 0.5);
@@ -136,7 +140,7 @@
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <div class="flex items-center space-x-1 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
                 <!--SeaSwap Logo -->
                 <img src="LogoTrans.svg" alt="SeaSwap Logo" class="h-10 w-10">
                 <span class="text-2xl font-bold text-white">SeaSwap</span>
@@ -174,7 +178,7 @@
                     <button class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg opacity-50 cursor-not-allowed" disabled>
                         Coming Soon
                     </button>
-                    <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-secondary text-white font-bold py-3 px-8 rounded-full text-lg" target="_blank" rel="noopener noreferrer">
+                    <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-link text-white font-bold text-lg" target="_blank" rel="noopener noreferrer">
                         Read the Docs
                     </a>
                 </div>
@@ -190,7 +194,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
-                    <div id="about-anchor" style="position: relative; top: -80px;"></div>
+                    <div id="about-anchor" style="position: relative; top: -120px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">The Smartest Way to Swap Tokens</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">Our mission is to simplify and optimize your trading experience by navigating the complexities of DeFi for you.</p>
                 </div>
@@ -223,7 +227,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
-                    <div id="howitworks-anchor" style="position: relative; top: -80px;"></div>
+                    <div id="howitworks-anchor" style="position: relative; top: -120px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Swap Seamlessly in Three Steps</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">A frictionless trading experience from start to finish.</p>
                 </div>
@@ -262,7 +266,7 @@
             </div>
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-8">
-                    <div id="roadmap-anchor" style="position: relative; top: -80px;"></div>
+                    <div id="roadmap-anchor" style="position: relative; top: -120px;"></div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">Roadmap</h2>
                     <p class="text-lg text-gray-400 max-w-2xl mx-auto">We believe in transparent development and are excited to share our public roadmap.</p>
                 </div>
@@ -319,6 +323,7 @@
                                     <h3 class="text-xl font-bold text-white">Coming Soon</h3>
                                     <p class="text-gray-400 mt-2">More exciting features and integrations are in development.</p>
                                 </div>
+                                <div id="api-anchor" style="position: relative; top: -100px;"></div>
                             </div>
                         </div>
                     </div>
@@ -338,7 +343,7 @@
                     <div class="order-2 md:order-1 card w-full max-w-full p-4 sm:p-8 break-words">
                         <h2 class="text-3xl md:text-4xl font-bold mb-4">Seaswap API & Developer Docs</h2>
                         <p class="text-lg text-gray-400 mb-4">Access deep liquidity, optimal routing, and seamless swap execution directly from your dApp, wallet, or service. Our robust API offers real-time quotes, token lists, and easy integration for developers building on Kaspa L2s.</p>
-                        <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg" target="_blank" rel="noopener noreferrer">
+                        <a href="https://dors-organization-1.gitbook.io/public-docs" class="btn-link text-white font-bold text-lg" target="_blank" rel="noopener noreferrer">
                             View docs
                         </a>
                     </div>
