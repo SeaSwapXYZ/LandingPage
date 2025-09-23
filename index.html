@@ -119,6 +119,24 @@
             height: 24px;
             border-radius: 50%;
         }
+        /* Square + equal-sized CTA helpers for tiny screens */
+        .btn-square { border-radius: 0 !important; }
+        .btn-equal { padding: 0.875rem 1rem; font-size: 1rem; line-height: 1.25rem; }
+        @media (min-width: 640px) {
+            .btn-equal { padding: 0.75rem 1.25rem; font-size: 1.125rem; }
+        }
+        /* Extra-small viewport tweaks for CTA sizing */
+        .btn-compact {
+            padding: 0.5rem 0.875rem; /* base compact size */
+            font-size: 0.95rem;
+        }
+        @media (max-width: 390px) {
+            .btn-compact {
+                padding: 0.45rem 0.8rem;
+                font-size: 0.875rem;
+                border-radius: 9999px;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -139,11 +157,11 @@
 
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 glass-effect">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-1 cursor-pointer" onclick="window.scrollTo({top:0,behavior:'smooth'})">
                 <!--SeaSwap Logo -->
                 <img src="LogoTrans.svg" alt="SeaSwap Logo" class="h-10 w-10">
-                <span class="text-2xl font-bold text-white">SeaSwap</span>
+                <span class="text-xl sm:text-2xl font-bold text-white">SeaSwap</span>
             </div>
             <div class="hidden md:flex items-center space-x-8">
                 <a href="#about-anchor" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
@@ -153,7 +171,7 @@
                 <a href="mailto:support@seaswap.xyz" class="text-gray-300 hover:text-cyan-400 transition-colors">Contact</a>
                 <a href="https://linktree.seaswap.xyz" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-cyan-400 transition-colors cursor-pointer">Follow Us</a>
             </div>
-            <a href="https://app.seaswap.xyz/" class="btn-primary px-5 py-2.5 rounded-full font-semibold opacity-100 cursor-pointer" target="_blank">
+            <a href="https://app.seaswap.xyz/" class="btn-primary btn-compact whitespace-nowrap leading-none rounded-full font-semibold text-sm sm:text-base opacity-100 cursor-pointer" target="_blank">
                 Launch dApp
             </a>
         </nav>
@@ -176,11 +194,11 @@
                 <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
                     SeaSwap is the first aggregator built for Kaspa L2s, optimizing your trades across all DEXs for better execution and lower costs.
                 </p>
-                <div class="flex justify-center items-center space-x-4">
-                    <a href="https://app.seaswap.xyz/" class="btn-primary px-5 py-2.5 rounded-full font-semibold text-lg opacity-100 cursor-pointer" target="_blank">
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="https://app.seaswap.xyz/" class="btn-primary btn-square btn-equal w-full sm:w-auto font-semibold opacity-100 cursor-pointer text-center" target="_blank">
                         Launch dApp
                     </a>
-                    <a href="https://app.seaswap.xyz/docs/api/v1/index.html" class="btn-link text-white font-bold text-lg" target="_blank" rel="noopener noreferrer">
+                    <a href="https://app.seaswap.xyz/docs/api/v1/index.html" class="btn-link btn-square btn-equal w-full sm:w-auto text-center text-white font-bold" target="_blank" rel="noopener noreferrer">
                         Read the Docs
                     </a>
                 </div>
